@@ -52,8 +52,8 @@ const ripple = {
       return
     }
 
-    const container = document.createElement('span')
-    const animation = document.createElement('span')
+    const container = el.ownerDocument.createElement('span')
+    const animation = el.ownerDocument.createElement('span')
 
     container.appendChild(animation)
     container.className = 'v-ripple__container'

@@ -47,7 +47,7 @@ export default {
         this.$nextTick(() => activator && activator.focus())
       } else if (e.keyCode === keyCodes.tab) {
         setTimeout(() => {
-          if (!this.$refs.content.contains(document.activeElement)) {
+          if (!this.$refs.content.contains(this.$el.ownerDocument.activeElement)) {
             this.isActive = false
           }
         })

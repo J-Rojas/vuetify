@@ -66,6 +66,7 @@ export default Vue.extend<Vue & Toggleable & Stackable & options>().extend({
           this.overlay.classList.add('v-overlay--active')
       }
 
+      let document = this.$el.ownerDocument
       this.overlay = document.createElement('div')
       this.overlay.className = 'v-overlay'
 
@@ -137,7 +138,7 @@ export default Vue.extend<Vue & Toggleable & Stackable & options>().extend({
       }
 
       if (e.target === this.overlay ||
-        (e.type !== 'keydown' && e.target === document.body) ||
+        (e.type !== 'keydown' && e.target === this.$el.ownerDocument.body) ||
         this.checkPath(e)) e.preventDefault()
     },
     hasScrollbar (el?: Element) {
@@ -153,7 +154,7 @@ export default Vue.extend<Vue & Toggleable & Stackable & options>().extend({
     isInside (el: Element, parent: Element): boolean {
       if (el === parent) {
         return true
-      } else if (el === null || el === document.body) {
+      } else if (el === null || el === this.$el.ownerDocument.body) {
         return false
       } else {
         return this.isInside(el.parentNode as Element, parent)
@@ -162,10 +163,11 @@ export default Vue.extend<Vue & Toggleable & Stackable & options>().extend({
     checkPath (e: WheelEvent) {
       const path = e.path || this.composedPath(e)
       const delta = e.deltaY
+      const document = this.$el.ownerDocument
 
       if (e.type === 'keydown' && path[0] === document.body) {
         const dialog = this.$refs.dialog
-        const selected = window.getSelection().anchorNode as Element
+        const selected = document.defaultView.getSelection().anchorNode as Element
         if (dialog && this.hasScrollbar(dialog) && this.isInside(selected, dialog)) {
           return this.shouldScroll(dialog, delta)
         }
@@ -193,6 +195,9 @@ export default Vue.extend<Vue & Toggleable & Stackable & options>().extend({
       const path = []
       let el = e.target as Element
 
+      const document = this.$el.ownerDocument
+      const window = document.defaultView
+
       while (el) {
         path.push(el)
 
@@ -209,14 +214,14 @@ export default Vue.extend<Vue & Toggleable & Stackable & options>().extend({
     },
     hideScroll () {
       if (this.$vuetify.breakpoint.smAndDown) {
-        document.documentElement!.classList.add('overflow-y-hidden')
+        this.$el.ownerDocument.documentElement!.classList.add('overflow-y-hidden')
       } else {
         addPassiveEventListener(window, 'wheel', this.scrollListener as EventHandlerNonNull, { passive: false })
         window.addEventListener('keydown', this.scrollListener as EventHandlerNonNull)
       }
     },
     showScroll () {
-      document.documentElement!.classList.remove('overflow-y-hidden')
+      this.$el.ownerDocument.documentElement!.classList.remove('overflow-y-hidden')
       window.removeEventListener('wheel', this.scrollListener as EventHandlerNonNull)
       window.removeEventListener('keydown', this.scrollListener as EventHandlerNonNull)
     }

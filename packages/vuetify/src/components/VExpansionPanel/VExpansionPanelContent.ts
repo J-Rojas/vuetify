@@ -86,7 +86,7 @@ export default mixins<options &
       // Ensure element is the activeElement
       if (
         e.keyCode === 13 &&
-        this.$el === document.activeElement
+        this.$el === this.$el.ownerDocument.activeElement
       ) this.expansionPanel.panelClick(this._uid)
     },
     onHeaderClick () {

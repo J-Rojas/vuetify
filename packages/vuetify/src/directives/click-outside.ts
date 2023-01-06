@@ -63,8 +63,8 @@ export default {
     // iOS does not recognize click events on document
     // or body, this is the entire purpose of the v-app
     // component and [data-app], stop removing this
-    const app = document.querySelector('[data-app]') ||
-      document.body // This is only for unit tests
+    const app = el.ownerDocument.querySelector('[data-app]') ||
+      el.ownerDocument.body // This is only for unit tests
     app.addEventListener('click', onClick, true)
     el._clickOutside = onClick
   },
@@ -72,8 +72,8 @@ export default {
   unbind (el: HTMLElement) {
     if (!el._clickOutside) return
 
-    const app = document.querySelector('[data-app]') ||
-      document.body // This is only for unit tests
+    const app = el.ownerDocument.querySelector('[data-app]') ||
+      el.ownerDocument.body // This is only for unit tests
     app && app.removeEventListener('click', el._clickOutside, true)
     delete el._clickOutside
   }

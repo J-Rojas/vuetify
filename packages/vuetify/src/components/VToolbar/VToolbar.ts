@@ -206,7 +206,7 @@ export default mixins(
 
   mounted () {
     if (this.scrollTarget) {
-      this.target = document.querySelector(this.scrollTarget)
+      this.target = this.$el.ownerDocument.querySelector(this.scrollTarget)
     }
   },
 

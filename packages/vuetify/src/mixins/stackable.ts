@@ -48,7 +48,7 @@ export default Vue.extend<options>().extend({
       // Convert the NodeList to an array to
       // prevent an Edge bug with Symbol.iterator
       // https://github.com/vuetifyjs/vuetify/issues/2146
-      const activeElements = [...document.getElementsByClassName(this.stackClass)]
+      const activeElements = [...this.$el.ownerDocument.getElementsByClassName(this.stackClass)]
 
       // Get z-index for all active dialogs
       for (let index = 0; index < activeElements.length; index++) {

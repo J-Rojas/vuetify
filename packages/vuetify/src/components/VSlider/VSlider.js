@@ -216,7 +216,7 @@ export default VInput.extend({
 
   mounted () {
     // Without a v-app, iOS does not work with body selectors
-    this.app = document.querySelector('[data-app]') ||
+    this.app = this.$el.ownerDocument.querySelector('[data-app]') ||
       consoleWarn('Missing v-app or a non-body wrapping element with the [data-app] attribute', this)
   },
 

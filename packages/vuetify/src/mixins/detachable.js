@@ -92,6 +92,7 @@ export default {
       ) return
 
       let target
+      let document = this.$el.ownerDocument
       if (this.attach === false) {
         // Default, detach to app
         target = document.querySelector('[data-app]')

@@ -268,7 +268,7 @@ export default Vue.extend({
 
       if (this.activator) {
         return typeof this.activator === 'string'
-          ? document.querySelector(this.activator)
+          ? this.$el.ownerDocument.querySelector(this.activator)
           : this.activator
       }
 
@@ -295,19 +295,19 @@ export default Vue.extend({
       if (!this.hasWindow) return 0
 
       return window.innerHeight ||
-        document.documentElement.clientHeight
+        this.$el.ownerDocument.documentElement.clientHeight
     },
     getOffsetLeft () {
       if (!this.hasWindow) return 0
 
       return window.pageXOffset ||
-        document.documentElement.scrollLeft
+      this.$el.ownerDocument.documentElement.scrollLeft
     },
     getOffsetTop () {
       if (!this.hasWindow) return 0
 
       return window.pageYOffset ||
-        document.documentElement.scrollTop
+      this.$el.ownerDocument.documentElement.scrollTop
     },
     getRoundedBoundedClientRect (el) {
       const rect = el.getBoundingClientRect()
@@ -359,7 +359,7 @@ export default Vue.extend({
       this.checkForWindow()
       this.checkActivatorFixed()
       this.checkForPageYOffset()
-      this.pageWidth = document.documentElement.clientWidth
+      this.pageWidth = this.$el.ownerDocument.documentElement.clientWidth
 
       const dimensions = {}
 

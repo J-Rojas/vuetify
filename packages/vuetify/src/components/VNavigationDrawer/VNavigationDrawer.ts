@@ -342,7 +342,7 @@ export default mixins(
           this.$emit('transitionend', e)
 
           // IE11 does not support new Event('resize')
-          const resizeEvent = document.createEvent('UIEvents')
+          const resizeEvent = this.$el.ownerDocument.createEvent('UIEvents')
           resizeEvent.initUIEvent('resize', true, false, window, 0)
           window.dispatchEvent(resizeEvent)
         }
