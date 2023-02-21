@@ -379,3 +379,11 @@ export function getSlotType<T extends boolean = false> (vm: Vue, name: string, s
   if (vm.$slots[name]) return 'normal'
   if (vm.$scopedSlots[name]) return 'scoped'
 }
+
+export function getOwnerDocument(comp: Vue) {
+  while (comp && comp.$el === undefined) {
+    comp = comp.$parent
+  }
+  if (comp) return comp.$el.ownerDocument
+  return null
+}

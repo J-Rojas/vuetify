@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Positionable from './positionable'
 
 import Stackable from './stackable'
+import { getOwnerDocument } from '../util/helpers'
 
 /* eslint-disable object-property-newline */
 const dimensions = {
@@ -295,19 +296,19 @@ export default Vue.extend({
       if (!this.hasWindow) return 0
 
       return window.innerHeight ||
-        this.$el.ownerDocument.documentElement.clientHeight
+      getOwnerDocument(this).documentElement.clientHeight
     },
     getOffsetLeft () {
       if (!this.hasWindow) return 0
 
       return window.pageXOffset ||
-      this.$el.ownerDocument.documentElement.scrollLeft
+      getOwnerDocument(this).documentElement.scrollLeft
     },
     getOffsetTop () {
       if (!this.hasWindow) return 0
 
       return window.pageYOffset ||
-      this.$el.ownerDocument.documentElement.scrollTop
+      getOwnerDocument(this).documentElement.scrollTop
     },
     getRoundedBoundedClientRect (el) {
       const rect = el.getBoundingClientRect()
