@@ -392,7 +392,7 @@ export default VInput.extend({
     onFocus (e) {
       if (!this.$refs.input) return
 
-      if (document.activeElement !== this.$refs.input) {
+      if (this.$el.ownerDocument.activeElement !== this.$refs.input) {
         return this.$refs.input.focus()
       }
 
